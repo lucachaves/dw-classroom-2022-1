@@ -20,6 +20,12 @@ function readById(id) {
   return {id, name, email};
 }
 
+function readByEmail(email) {
+  const user = db.users.find((user) => user.email === email);
+
+  return user;
+}
+
 async function create(user) {
   const id = getLastId() + 1;
 
@@ -54,4 +60,4 @@ function remove(id) {
   db.users.splice(index, 1);
 }
 
-export default {create, readAll, readById, update, remove};
+export default {create, readAll, readById, readByEmail, update, remove};

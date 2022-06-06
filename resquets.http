@@ -1,6 +1,7 @@
 ### List all hosts
 
 GET http://localhost:3000/hosts
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTY1NDUyMzk2NCwiZXhwIjoxNjU0NTI0MjY0fQ.W5NS6nR9a8af5sd4cUwvpLrqQv1TTS3Q3TjWnkmZMw8
 
 ### Create host
 
@@ -59,3 +60,23 @@ Content-Type: application/json
 ### Delete user
 
 DELETE http://localhost:3000/users/2
+
+### Signin
+
+POST http://localhost:3000/signin
+Content-Type: application/json
+
+{
+  "email": "test@email.com",
+  "password": "test"
+}
+
+### Signin
+
+POST http://localhost:3000/signin
+Content-Type: application/json
+
+{
+  "email": "teste@email.com",
+  "password": "123"
+}

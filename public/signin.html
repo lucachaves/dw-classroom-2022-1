@@ -31,12 +31,6 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/hosts.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link">Sair</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="/signup.html">Cadastrar</a>
             </li>
             <li class="nav-item">
@@ -46,8 +40,8 @@
         </div>
       </div>
     </nav>
-    <div class="container">
-      <h1 class="text-center my-5">Entrar</h1>
+    <div class="container position-relative">
+      <h1 class="text-center m-0 py-5">Entrar</h1>
       
       <div class="row justify-content-center">
         <form class="col-6">
@@ -63,6 +57,14 @@
             <button type="submit" class="btn btn-primary">Entrar</button>
           </div>
         </form>
+      </div>
+      <div class="position-absolute top-0 end-0 p-3" style="z-index: 11">
+        <div id="liveToast" class="toast bg-warning" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="toast-header">
+            <strong class="me-auto"></strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+        </div>
       </div>
     </div>
     

@@ -1,4 +1,5 @@
 import { updateChart } from "./chart.js";
+import Auth from '../services/auth.js';
 
 const tbody = document.querySelector('tbody');
 
@@ -77,7 +78,18 @@ export function loadCreateHostSubmit() {
 export async function loadHosts() {
   const url = '/hosts';
 
-  const hosts = await (await fetch(url)).json();
+  const config = {
+    method: 'get',
+    headers: {
+      Authorization: `Bearer ${Auth.getToken()}`
+    }
+  }
+
+  try {
+    const hosts = await (await fetch(url, config)).json();
+  } catch(error) {
+    location.href = '/signin.html';
+  }
 
   loadHostsTable(hosts);
 }
