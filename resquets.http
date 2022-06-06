@@ -1,0 +1,61 @@
+### List all hosts
+
+GET http://localhost:3000/hosts
+
+### Create host
+
+POST http://localhost:3000/hosts
+Content-Type: application/json
+
+{
+  "name": "IFPB",
+  "address": "www.ifpb.edu.br"
+}
+
+### Update host
+
+PUT http://localhost:3000/hosts/3
+Content-Type: application/json
+
+{
+  "name": "Instituto Federal da Paraíba",
+  "address": "www.ifpb.edu.br"
+}
+
+### Delete host
+
+DELETE http://localhost:3000/hosts/3
+
+### Get time by host
+
+GET http://localhost:3000/hosts/1/times
+
+### List all users
+
+GET http://localhost:3000/users
+
+### Create user
+
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "name": "teste",
+  "email": "teste@email.com",
+  "password": "123"
+}
+
+### Update user
+
+PUT http://localhost:3000/users/2
+Content-Type: application/json
+
+{
+  "name": "test",
+  "email": "test@email.com",
+  "password": "12345678"
+}
+
+### Delete user
+
+DELETE http://localhost:3000/users/2
