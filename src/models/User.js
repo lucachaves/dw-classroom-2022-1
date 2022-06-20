@@ -1,63 +1,103 @@
 import bcrypt from 'bcrypt';
 
-import db from '../database/db.js';
+import Database from '../database/index.js';
 
 const saltRounds = 12;
 
-function getLastId() {
-  return db.users
-    .map((user) => user.id)
-    .sort((a, b) => b - a)[0];
+async function readAll() {
+  const db = await Database.connect();
+
+  const sql = `
+    SELECT
+      id, name, email
+    FROM
+      users
+  `;
+
+  return await db.all(sql);
 }
 
-function readAll() {
-  return db.users.map(({id, name, email}) => ({id, name, email}));
+async function readById(id) {
+  const db = await Database.connect();
+
+  const sql = `
+    SELECT
+      id, name, email
+    FROM
+      users
+    WHERE
+      id = ?
+  `;
+
+  return await db.get(sql, [id]);
 }
 
-function readById(id) {
-  const {name, email} = db.users.find((user) => user.id === id);
+async function readByEmail(email) {
+  const db = await Database.connect();
 
-  return {id, name, email};
-}
+  const sql = `
+    SELECT
+      *
+    FROM
+      users
+    WHERE
+      email = ?
+  `;
 
-function readByEmail(email) {
-  const user = db.users.find((user) => user.email === email);
-
-  return user;
+  return await db.get(sql, [email]);
 }
 
 async function create(user) {
-  const id = getLastId() + 1;
+  const db = await Database.connect();
 
   const {name, email, password} = user;
 
-  const newUser = {...user, id};
-
   const hash = await bcrypt.hash(password, saltRounds);
+  
+  const sql = `
+    INSERT INTO 
+      users (name, email, password)
+    VALUES
+      (?, ?, ?)
+  `;
 
-  db.users.push({...newUser, password: hash});
+  const {lastID} = await db.run(sql, [name, email, hash]);
 
-  return {id, name, email};
+  return await readById(lastID);
 }
 
 async function update(id, user) {
-  const index = db.users.findIndex((user) => user.id === id);
+  const db = await Database.connect();
 
   const {name, email, password} = user;
 
   const hash = await bcrypt.hash(password, saltRounds);
   
-  const newUser = {id, ...user, password: hash}
+  const sql = `
+    UPDATE 
+      users 
+    SET
+      name = ? , email = ?, password = ?
+    WHERE
+      id = ?
+  `;
 
-  db.users[index] = newUser;
+  await db.run(sql, [name, email, hash, id]);
 
-  return {id, name, email};
+  return await readById(id);
 }
 
-function remove(id) {
-  const index = db.users.findIndex((user) => user.id === id);
-  
-  db.users.splice(index, 1);
+async function remove(id) {
+  const db = await Database.connect();
+
+  const sql = `
+    DELETE FROM 
+      users
+    WHERE
+      id = ?
+  `;
+
+  await db.run(sql, [id]);
 }
 
 export default {create, readAll, readById, readByEmail, update, remove};

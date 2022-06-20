@@ -1,45 +1,80 @@
-import db from '../database/db.js';
+import Database from '../database/index.js';
 
-function getLastId() {
-  return db.hosts
-    .map((host) => host.id)
-    .sort((a, b) => b - a)[0];
+async function readAll() {
+  const db = await Database.connect();
+
+  const sql = `
+    SELECT
+      *
+    FROM
+      hosts
+  `;
+
+  return await db.all(sql);
 }
 
-function readAll() {
-  return db.hosts;
+async function readById(id) {
+  const db = await Database.connect();
+
+  const sql = `
+    SELECT
+      *
+    FROM
+      hosts
+    WHERE
+      id = ?
+  `;
+
+  return await db.get(sql, [id]);
 }
 
-function readById(id) {
-  const host = db.hosts.find((host) => host.id === id);
+async function create(host) {
+  const db = await Database.connect();
 
-  return host;
+  const {name, address} = host;
+
+  const sql = `
+    INSERT INTO 
+      hosts (name, address)
+    VALUES
+      (?, ?)
+  `;
+
+  const {lastID} = await db.run(sql, [name, address]);
+
+  return await readById(lastID);
 }
 
-function create(host) {
-  const id = getLastId() + 1;
+async function update(id, host) {
+  const db = await Database.connect();
 
-  const newHost = {...host, id};
+  const {name, address} = host;
 
-  db.hosts.push(newHost);
+  const sql = `
+    UPDATE 
+      hosts
+    SET
+      name = ?, address = ?
+    WHERE
+      id = ?
+  `;
 
-  return newHost;
+  await db.run(sql, [name, address, id]);
+
+  return await readById(id);
 }
 
-function update(id, host) {
-  const index = db.hosts.findIndex((host) => host.id === id);
+async function remove(id) {
+  const db = await Database.connect();
 
-  const newHost = {id, ...host}
+  const sql = `
+    DELETE FROM 
+      hosts
+    WHERE
+      id = ?
+  `;
 
-  db.hosts[index] = newHost;
-
-  return newHost;
-}
-
-function remove(id) {
-  const index = db.hosts.findIndex((host) => host.id === id);
-  
-  db.hosts.splice(index, 1);
+  await db.run(sql, [id]);
 }
 
 export default {create, readAll, readById, update, remove};

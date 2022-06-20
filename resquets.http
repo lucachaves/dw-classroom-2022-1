@@ -1,12 +1,13 @@
 ### List all hosts
 
 GET http://localhost:3000/hosts
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTY1NDUyMzk2NCwiZXhwIjoxNjU0NTI0MjY0fQ.W5NS6nR9a8af5sd4cUwvpLrqQv1TTS3Q3TjWnkmZMw8
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTY1NTczNzAzNiwiZXhwIjoxNjU1NzQwNjM2fQ.KdJzAj0kwBZ5phBchd9TITOGOGbd3KB4mniZLaasP3o
 
 ### Create host
 
 POST http://localhost:3000/hosts
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTY1NTczNzAzNiwiZXhwIjoxNjU1NzQwNjM2fQ.KdJzAj0kwBZ5phBchd9TITOGOGbd3KB4mniZLaasP3o
 
 {
   "name": "IFPB",
@@ -17,6 +18,7 @@ Content-Type: application/json
 
 PUT http://localhost:3000/hosts/3
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTY1NTczNzAzNiwiZXhwIjoxNjU1NzQwNjM2fQ.KdJzAj0kwBZ5phBchd9TITOGOGbd3KB4mniZLaasP3o
 
 {
   "name": "Instituto Federal da Paraíba",
@@ -25,15 +27,18 @@ Content-Type: application/json
 
 ### Delete host
 
-DELETE http://localhost:3000/hosts/3
+DELETE http://localhost:3000/hosts/5
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTY1NTczNzAzNiwiZXhwIjoxNjU1NzQwNjM2fQ.KdJzAj0kwBZ5phBchd9TITOGOGbd3KB4mniZLaasP3o
 
 ### Get time by host
 
 GET http://localhost:3000/hosts/1/times
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTY1NTczNzAzNiwiZXhwIjoxNjU1NzQwNjM2fQ.KdJzAj0kwBZ5phBchd9TITOGOGbd3KB4mniZLaasP3o
 
 ### List all users
 
 GET http://localhost:3000/users
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTY1NTczNzAzNiwiZXhwIjoxNjU1NzQwNjM2fQ.KdJzAj0kwBZ5phBchd9TITOGOGbd3KB4mniZLaasP3o
 
 ### Create user
 
@@ -48,8 +53,9 @@ Content-Type: application/json
 
 ### Update user
 
-PUT http://localhost:3000/users/2
+PUT http://localhost:3000/users/1
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTY1NTczNzAzNiwiZXhwIjoxNjU1NzQwNjM2fQ.KdJzAj0kwBZ5phBchd9TITOGOGbd3KB4mniZLaasP3o
 
 {
   "name": "test",
@@ -59,7 +65,9 @@ Content-Type: application/json
 
 ### Delete user
 
-DELETE http://localhost:3000/users/2
+DELETE http://localhost:3000/users/1
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTY1NTczNzAzNiwiZXhwIjoxNjU1NzQwNjM2fQ.KdJzAj0kwBZ5phBchd9TITOGOGbd3KB4mniZLaasP3o"
+
 
 ### Signin
 

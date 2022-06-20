@@ -1,7 +1,6 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-// import ping from 'ping';
 
 import ping from './lib/ping.js';
 import Host from './models/Host.js';
@@ -12,16 +11,16 @@ const router = express.Router();
 
 router.get('/', (req, res) => res.redirect('/hosts.html'));
 
-router.get('/hosts', isAuthenticated, (req, res) => {
-  const hosts = Host.readAll();
+router.get('/hosts', isAuthenticated, async (req, res) => {
+  const hosts = await Host.readAll();
 
   res.json(hosts);
 });
 
-router.post('/hosts', isAuthenticated, (req, res) => {
+router.post('/hosts', isAuthenticated, async (req, res) => {
   const host = req.body;
 
-  const newHost = Host.create(host);
+  const newHost = await Host.create(host);
 
   res.status(201).json(newHost);
 })
@@ -34,18 +33,18 @@ router.delete('/hosts/:id', isAuthenticated, (req, res) => {
   res.status(204).send();
 });
 
-router.put('/hosts/:id', isAuthenticated, (req, res) => {
+router.put('/hosts/:id', isAuthenticated, async (req, res) => {
   const id = Number(req.params.id);
 
   const host = req.body;
 
-  const newHost = Host.update(id, host);
+  const newHost = await Host.update(id, host);
 
   res.status(200).json(newHost);
 });
 
-router.get('/users', (req, isAuthenticated, res) => {
-  const users = User.readAll();
+router.get('/users', isAuthenticated, async (req, res) => {
+  const users = await User.readAll();
 
   res.json(users);
 });
@@ -79,9 +78,7 @@ router.put('/users/:id', isAuthenticated, async (req, res) => {
 router.get('/hosts/:id/times', isAuthenticated, async (req, res) => {
   const id = Number(req.params.id);
 
-  const { address } = Host.readById(id);
-
-  // const { times } = await ping.promise.probe(address, { min_reply: 3 });
+  const { address } = await Host.readById(id);
 
   const { times } = await ping(address);
 
@@ -91,16 +88,16 @@ router.get('/hosts/:id/times', isAuthenticated, async (req, res) => {
 router.post('/signin', async (req, res) => {
   try {
     const { email, password } = req.body;
-    
-    const { id: userId, password: hash } = User.readByEmail(email);
-    
+
+    const { id: userId, password: hash } = await User.readByEmail(email);
+
     const match = await bcrypt.compare(password, hash);
-    
+
     if (match) {
       const token = jwt.sign(
         { userId }, 
         process.env.SECRET, 
-        { expiresIn: 300 } // 5min
+        { expiresIn: 3600 } // 1h
       );
 
       res.json({ auth: true, token });

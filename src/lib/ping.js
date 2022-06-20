@@ -4,7 +4,7 @@ import { exec } from 'child_process';
 const execAsync = promisify(exec);
 
 async function ping(address, count = 3) {
-  const command = `ping ${address} -c 3`;
+  const command = `ping ${address} -c ${count}`;
 
   const { stdout } = await execAsync(command);
 
@@ -23,6 +23,8 @@ async function ping(address, count = 3) {
   const times = Array.from(stdout.matchAll(pattern)).map((match) =>
     Number(match.groups.time)
   );
+
+  console.log('TIMES', times);
 
   return {
     stdout,

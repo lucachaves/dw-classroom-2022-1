@@ -1,7 +1,7 @@
+import 'express-async-errors';
 import 'dotenv/config';
 import express from 'express';
 import morgan from 'morgan';
-import 'express-async-errors';
 
 import Router from './routes.js';
 
