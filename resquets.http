@@ -1,13 +1,16 @@
+@token = {{login.response.body.token}}
+@host = http://localhost:3000
+
 ### List all hosts
 
-GET http://localhost:3000/hosts
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTY1NTczNzAzNiwiZXhwIjoxNjU1NzQwNjM2fQ.KdJzAj0kwBZ5phBchd9TITOGOGbd3KB4mniZLaasP3o
+GET {{host}}/hosts
+Authorization: bearer {{token}}
 
 ### Create host
 
-POST http://localhost:3000/hosts
+POST {{host}}/hosts
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTY1NTczNzAzNiwiZXhwIjoxNjU1NzQwNjM2fQ.KdJzAj0kwBZ5phBchd9TITOGOGbd3KB4mniZLaasP3o
+Authorization: bearer {{token}}
 
 {
   "name": "IFPB",
@@ -16,9 +19,9 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhd
 
 ### Update host
 
-PUT http://localhost:3000/hosts/3
+PUT {{host}}/hosts/3
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTY1NTczNzAzNiwiZXhwIjoxNjU1NzQwNjM2fQ.KdJzAj0kwBZ5phBchd9TITOGOGbd3KB4mniZLaasP3o
+Authorization: bearer {{token}}
 
 {
   "name": "Instituto Federal da Paraíba",
@@ -27,22 +30,22 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhd
 
 ### Delete host
 
-DELETE http://localhost:3000/hosts/5
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTY1NTczNzAzNiwiZXhwIjoxNjU1NzQwNjM2fQ.KdJzAj0kwBZ5phBchd9TITOGOGbd3KB4mniZLaasP3o
+DELETE {{host}}/hosts/5
+Authorization: bearer {{token}}
 
 ### Get time by host
 
-GET http://localhost:3000/hosts/1/times
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTY1NTczNzAzNiwiZXhwIjoxNjU1NzQwNjM2fQ.KdJzAj0kwBZ5phBchd9TITOGOGbd3KB4mniZLaasP3o
+GET {{host}}/hosts/1/times
+Authorization: bearer {{token}}
 
 ### List all users
 
-GET http://localhost:3000/users
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTY1NTczNzAzNiwiZXhwIjoxNjU1NzQwNjM2fQ.KdJzAj0kwBZ5phBchd9TITOGOGbd3KB4mniZLaasP3o
+GET {{host}}/users
+Authorization: bearer {{token}}
 
 ### Create user
 
-POST http://localhost:3000/users
+POST {{host}}/users
 Content-Type: application/json
 
 {
@@ -53,9 +56,9 @@ Content-Type: application/json
 
 ### Update user
 
-PUT http://localhost:3000/users/1
+PUT {{host}}/users/1
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTY1NTczNzAzNiwiZXhwIjoxNjU1NzQwNjM2fQ.KdJzAj0kwBZ5phBchd9TITOGOGbd3KB4mniZLaasP3o
+Authorization: bearer {{token}}
 
 {
   "name": "test",
@@ -65,13 +68,13 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhd
 
 ### Delete user
 
-DELETE http://localhost:3000/users/1
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTY1NTczNzAzNiwiZXhwIjoxNjU1NzQwNjM2fQ.KdJzAj0kwBZ5phBchd9TITOGOGbd3KB4mniZLaasP3o"
+DELETE {{host}}/users/1
+Authorization: bearer {{token}}"
 
 
-### Signin
+### Signin invalid
 
-POST http://localhost:3000/signin
+POST {{host}}/signin
 Content-Type: application/json
 
 {
@@ -79,9 +82,10 @@ Content-Type: application/json
   "password": "test"
 }
 
-### Signin
+### Signin valid
 
-POST http://localhost:3000/signin
+# @name login
+POST {{host}}/signin
 Content-Type: application/json
 
 {

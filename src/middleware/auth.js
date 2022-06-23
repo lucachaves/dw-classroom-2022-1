@@ -1,10 +1,10 @@
-import jwt from "jsonwebtoken";
+import jwt from 'jsonwebtoken';
 
 function isAuthenticated(req, res, next) {
   try {
     const { authorization } = req.headers;
 
-    const [, token] = authorization.split(" ");
+    const [, token] = authorization.split(' ');
 
     const { userId } = jwt.verify(token, process.env.SECRET);
 
@@ -12,7 +12,7 @@ function isAuthenticated(req, res, next) {
 
     next();
   } catch (error) {
-    res.status(401).send({ auth: false, message: "Token invalid." });
+    res.status(401).send({ auth: false, message: 'Token invalid.' });
   }
 }
 

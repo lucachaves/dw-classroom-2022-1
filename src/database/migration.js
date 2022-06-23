@@ -25,4 +25,4 @@ async function up() {
   await db.exec(hostsSql);
 }
 
-export default {up};
+export default { up };

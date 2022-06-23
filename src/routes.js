@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 import ping from './lib/ping.js';
 import Host from './models/Host.js';
 import User from './models/User.js';
-import {isAuthenticated} from './middleware/auth.js';
+import { isAuthenticated } from './middleware/auth.js';
 
 const router = express.Router();
 
@@ -23,7 +23,7 @@ router.post('/hosts', isAuthenticated, async (req, res) => {
   const newHost = await Host.create(host);
 
   res.status(201).json(newHost);
-})
+});
 
 router.delete('/hosts/:id', isAuthenticated, (req, res) => {
   const id = Number(req.params.id);
@@ -55,7 +55,7 @@ router.post('/users', async (req, res) => {
   const newUser = await User.create(user);
 
   res.status(201).json(newUser);
-})
+});
 
 router.delete('/users/:id', isAuthenticated, (req, res) => {
   const id = Number(req.params.id);
@@ -95,8 +95,8 @@ router.post('/signin', async (req, res) => {
 
     if (match) {
       const token = jwt.sign(
-        { userId }, 
-        process.env.SECRET, 
+        { userId },
+        process.env.SECRET,
         { expiresIn: 3600 } // 1h
       );
 
@@ -104,9 +104,8 @@ router.post('/signin', async (req, res) => {
     } else {
       throw new Error();
     }
-    
   } catch (error) {
-    res.status(401).json({ error: "User not found" });
+    res.status(401).json({ error: 'User not found' });
   }
 });
 

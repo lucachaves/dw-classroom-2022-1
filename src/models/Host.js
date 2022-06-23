@@ -31,16 +31,16 @@ async function readById(id) {
 async function create(host) {
   const db = await Database.connect();
 
-  const {name, address} = host;
+  const { name, address } = host;
 
   const sql = `
-    INSERT INTO 
+    INSERT INTO
       hosts (name, address)
     VALUES
       (?, ?)
   `;
 
-  const {lastID} = await db.run(sql, [name, address]);
+  const { lastID } = await db.run(sql, [name, address]);
 
   return await readById(lastID);
 }
@@ -48,10 +48,10 @@ async function create(host) {
 async function update(id, host) {
   const db = await Database.connect();
 
-  const {name, address} = host;
+  const { name, address } = host;
 
   const sql = `
-    UPDATE 
+    UPDATE
       hosts
     SET
       name = ?, address = ?
@@ -68,7 +68,7 @@ async function remove(id) {
   const db = await Database.connect();
 
   const sql = `
-    DELETE FROM 
+    DELETE FROM
       hosts
     WHERE
       id = ?
@@ -77,4 +77,4 @@ async function remove(id) {
   await db.run(sql, [id]);
 }
 
-export default {create, readAll, readById, update, remove};
+export default { create, readAll, readById, update, remove };

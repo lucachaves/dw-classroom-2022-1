@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 
 import Database from '../database/index.js';
 
-const saltRounds = 12;
+const saltRounds = Number(process.env.BCRYPT_SALT);
 
 async function readAll() {
   const db = await Database.connect();
@@ -50,18 +50,18 @@ async function readByEmail(email) {
 async function create(user) {
   const db = await Database.connect();
 
-  const {name, email, password} = user;
+  const { name, email, password } = user;
 
   const hash = await bcrypt.hash(password, saltRounds);
-  
+
   const sql = `
-    INSERT INTO 
+    INSERT INTO
       users (name, email, password)
     VALUES
       (?, ?, ?)
   `;
 
-  const {lastID} = await db.run(sql, [name, email, hash]);
+  const { lastID } = await db.run(sql, [name, email, hash]);
 
   return await readById(lastID);
 }
@@ -69,13 +69,13 @@ async function create(user) {
 async function update(id, user) {
   const db = await Database.connect();
 
-  const {name, email, password} = user;
+  const { name, email, password } = user;
 
   const hash = await bcrypt.hash(password, saltRounds);
-  
+
   const sql = `
-    UPDATE 
-      users 
+    UPDATE
+      users
     SET
       name = ? , email = ?, password = ?
     WHERE
@@ -91,7 +91,7 @@ async function remove(id) {
   const db = await Database.connect();
 
   const sql = `
-    DELETE FROM 
+    DELETE FROM
       users
     WHERE
       id = ?
@@ -100,4 +100,4 @@ async function remove(id) {
   await db.run(sql, [id]);
 }
 
-export default {create, readAll, readById, readByEmail, update, remove};
+export default { create, readAll, readById, readByEmail, update, remove };

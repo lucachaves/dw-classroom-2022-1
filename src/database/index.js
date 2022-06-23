@@ -1,7 +1,19 @@
 import Database from 'sqlite-async';
 
-async function connect() {
-  return await Database.open('src/database/database.sqlite');
+function getDatabase() {
+  const databases = {
+    development: 'database.dev.sqlite',
+    test: 'database.test.sqlite',
+    production: 'database.production.sqlite',
+  };
+
+  const NODE_ENV = process.env.NODE_ENV || 'development';
+
+  return databases[NODE_ENV];
 }
 
-export default {connect};
+async function connect() {
+  return await Database.open(`src/database/${getDatabase()}`);
+}
+
+export default { connect };

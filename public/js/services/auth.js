@@ -1,27 +1,27 @@
 function isAuthenticated() {
   if (!getToken()) {
-    window.location.href = "/signin.html";
+    window.location.href = '/signin.html';
   } else {
     return true;
   }
 }
 
 function getToken() {
-  return localStorage.getItem("@hostMonitor:token");
+  return localStorage.getItem('@hostMonitor:token');
 }
 
 function signin(token) {
-  localStorage.setItem("@hostMonitor:token", token);
+  localStorage.setItem('@hostMonitor:token', token);
 
-  window.location.href = "/hosts.html";
+  window.location.href = '/hosts.html';
 }
 
 function signout() {
-  fetch("/signout");
+  fetch('/signout');
 
-  localStorage.removeItem("@hostMonitor:token");
+  localStorage.removeItem('@hostMonitor:token');
 
-  window.location.href = "/signin.html";
+  window.location.href = '/signin.html';
 }
 
 export default { isAuthenticated, getToken, signin, signout };

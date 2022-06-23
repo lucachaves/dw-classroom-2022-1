@@ -8,8 +8,8 @@ export function showChart() {
         backgroundColor: 'rgb(255, 99, 132)',
         borderColor: 'rgb(255, 99, 132)',
         data: [],
-      }
-    ]
+      },
+    ],
   };
 
   const config = {
@@ -19,20 +19,17 @@ export function showChart() {
       plugins: {
         legend: {
           display: false,
-        }
+        },
       },
       scales: {
         y: {
-          beginAtZero: true
-        }
-      }
-    }
+          beginAtZero: true,
+        },
+      },
+    },
   };
 
-  chart = new Chart(
-    document.getElementById('myChart'),
-    config
-  );
+  chart = new Chart(document.getElementById('myChart'), config);
 }
 
 export function updateChart(values) {
